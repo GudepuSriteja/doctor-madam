@@ -174,7 +174,11 @@ document.getElementById("place").addEventListener("input",()=>{
 });
 document.getElementById("raincheck").addEventListener("click",()=>show(7));
 document.querySelector('[data-step="5"] .next').addEventListener("click",()=>show(6));
-document.getElementById("finish").addEventListener("click",()=>show(0));
+document.getElementById("finish").addEventListener("click",()=>{
+  const button=document.getElementById("finish");
+  button.textContent="All set ✓";
+  button.disabled=true;
+});
 document.getElementById("return").addEventListener("click",()=>show(3));
 document.getElementById("close").addEventListener("click",()=>show(0));
 </script>
