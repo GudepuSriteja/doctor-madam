@@ -122,9 +122,8 @@ input:focus{border-color:var(--accent)}
       <div class="kicker">Responses recorded</div>
       <p class="done">Good girl. 😌</p>
       <h2>Nee responses anni record chesukunna.</h2>
-      <div class="summary" id="summary"></div>
       <p style="margin-top:20px">Hope evening varaku nee uterus lo em toofan ravaddhu ani korukuntuu… see you in the evening. 😂</p>
-      <div class="actions"><button class="back" id="edit">← Edit answers</button><button class="next" id="finish">Done ✓</button></div>
+      <div class="actions"><span></span><button class="next" id="finish">Done ✓</button></div>
       <div class="note">P.S. New hospital lo November 8th first day ki all the best, Doctor Madam.</div>
     </section>
 
@@ -174,18 +173,6 @@ document.getElementById("place").addEventListener("input",()=>{
   document.getElementById("placeNext").disabled=!hasTime;
 });
 document.getElementById("raincheck").addEventListener("click",()=>show(7));
-function buildSummary(){
-  const summary=document.getElementById("summary");
-  summary.replaceChildren();
-  [["Tummy update",answers.mood],["Yummy yummy",answers.food],["Evening plan",answers.invite],["Time",answers.time],["Place",answers.place],["Intiki parigethadam?",answers.escape]].forEach(([label,value])=>{
-    const row=document.createElement("div");
-    const key=document.createElement("b");key.textContent=label;
-    const val=document.createElement("span");val.textContent=value;
-    row.append(key,val);summary.append(row);
-  });
-}
-document.querySelector('[data-step="5"] .next').addEventListener("click",()=>{buildSummary();show(6);});
-document.getElementById("edit").addEventListener("click",()=>show(1));
 document.getElementById("finish").addEventListener("click",()=>show(0));
 document.getElementById("return").addEventListener("click",()=>show(3));
 document.getElementById("close").addEventListener("click",()=>show(0));
