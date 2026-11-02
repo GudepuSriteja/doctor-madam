@@ -14,7 +14,7 @@ main{width:min(100%,560px)}
 .brand{font-size:12px;letter-spacing:1.7px;text-transform:uppercase;color:var(--muted)}
 .progress{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .track{height:3px;background:#e7ddd8;border-radius:8px;overflow:hidden;margin-bottom:18px}
-.fill{height:100%;width:20%;background:var(--accent);transition:width .25s ease}
+.fill{height:100%;width:16.6%;background:var(--accent);transition:width .25s ease}
 .card{background:rgba(255,253,251,.94);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,6vw,42px);min-height:390px;box-shadow:0 18px 55px #44343a0b;display:flex;flex-direction:column}
 .step{display:none;flex:1;animation:appear .22s ease}
 .step.active{display:flex;flex-direction:column}
@@ -41,88 +41,102 @@ input:focus{border-color:var(--accent)}
 .summary div:last-child{border:0}
 .summary b{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:3px}
 .done{font-family:Georgia,serif;font-size:25px;margin:0 0 12px}
+.subtle{border:0;background:transparent;color:var(--muted);font-size:12px;text-decoration:underline;padding:12px 0 0;align-self:flex-start}
 @keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:420px){body{padding:14px}.card{min-height:430px;border-radius:20px}}
 </style>
 </head>
 <body>
 <main>
-  <div class="top"><div class="brand">A small plan for tonight</div><div class="progress" id="counter">01 / 05</div></div>
+  <div class="top"><div class="brand">Doctor Madam</div><div class="progress" id="counter">01 / 06</div></div>
   <div class="track"><div class="fill" id="fill"></div></div>
   <div class="card">
     <section class="step active" data-step="0">
-      <div class="kicker">First things first</div>
+      <div class="kicker">Revised proposal · 02</div>
       <h1>Doctor <em>Madam.</em></h1>
-      <h2>How are you feeling today?</h2>
-      <p>Yesterday didn't work out. Just checking how you're doing today before I try my luck again.</p>
-      <div class="options" data-choice="mood">
-        <button class="option" type="button">Feeling much better</button>
-        <button class="option" type="button">A little better, taking it easy</button>
-        <button class="option" type="button">Still not at my best</button>
-      </div>
-      <div class="actions"><button class="back" disabled>Back</button><button class="next" disabled>Next →</button></div>
+      <h2>Yesterday's plan didn't happen, so I'm submitting a revised proposal for tonight.</h2>
+      <p>Kindly review the following questions and submit your decisions.</p>
+      <div class="actions"><button class="back" disabled>Back</button><button class="next">Proceed →</button></div>
     </section>
 
     <section class="step" data-step="1">
-      <div class="kicker">The actual question</div>
-      <h2>Would you like to meet tonight?</h2>
-      <p>I'm free after 6. Nothing elaborate — just getting out for a bit and spending some time together.</p>
-      <div class="options" data-choice="invite">
-        <button class="option" type="button">Yes, let's make it happen</button>
-        <button class="option" type="button">Not tonight. Another day?</button>
+      <div class="kicker">Question 01</div>
+      <h2>Ippudu nee tummy ela undi?</h2>
+      <div class="options" data-choice="mood">
+        <button class="option" type="button">Chaala better ga undi 😌</button>
+        <button class="option" type="button">Konchem better… slow ga unna</button>
+        <button class="option" type="button">Inka ibbandi gaane undi 🥲</button>
       </div>
       <div class="actions"><button class="back">← Back</button><button class="next" disabled>Next →</button></div>
     </section>
 
     <section class="step" data-step="2">
-      <div class="kicker">If tonight works</div>
-      <h2>What time suits you?</h2>
-      <p>Pick whatever fits around your evening. I'm available after 6 PM.</p>
-      <div class="options" data-choice="time">
-        <button class="option" type="button">6:30 PM</button>
-        <button class="option" type="button">7:00 PM</button>
-        <button class="option" type="button">7:30 PM</button>
-        <button class="option" type="button">8:00 PM</button>
-        <button class="option" type="button">Later than 8</button>
+      <div class="kicker">Question 02</div>
+      <h2> nee tummy ki emaina yummy yummy tinali anipisthundha?</h2>
+      <p>Yes or no? Actually, tummy ki food kavali ani naaku already telusu. 😌</p>
+      <div class="options" data-choice="food">
+        <button class="option" type="button">Yessss, yummy yummy! 😋</button>
       </div>
       <div class="actions"><button class="back">← Back</button><button class="next" disabled>Next →</button></div>
     </section>
 
     <section class="step" data-step="3">
-      <div class="kicker">Your call</div>
-      <h2>Where would you like to go?</h2>
-      <p>You can name a place, a neighbourhood, or just tell me the kind of place you're in the mood for. I'll take it from there.</p>
-      <input id="place" type="text" maxlength="100" placeholder="A café, a quiet place, your pick…">
-      <div class="note">No need to overthink it. Somewhere comfortable is perfect.</div>
-      <div class="actions"><button class="back">← Back</button><button class="next" id="placeNext" disabled>Next →</button></div>
+      <div class="kicker">Question 03</div>
+      <h2>How about nenu ivala evening ninnu pick chesukunta?</h2>
+      <div class="options" data-choice="invite">
+        <button class="option" type="button">Yesshhhhh! 😁</button>
+        <button class="option" type="button">Yesshhhhhhhhhh! Obviously! 🤭</button>
+      </div>
+      <button class="subtle" type="button" id="raincheck">Ivala kaakapothe inkoka roju plan cheddam</button>
+      <div class="actions"><button class="back">← Back</button><button class="next" disabled>Next →</button></div>
     </section>
 
     <section class="step" data-step="4">
-      <div class="kicker">One last check</div>
-      <h2>Here's what we're thinking.</h2>
-      <p>I'll confirm the details with you before heading out.</p>
-      <div class="summary" id="summary"></div>
-      <div class="note">And good luck with the new hospital on 8 November. Hope the first day goes smoothly.</div>
-      <div class="actions"><button class="back">← Back</button><button class="next" id="finish">Copy plan</button></div>
+      <div class="kicker">Question 04</div>
+      <h2>At what time?</h2>
+      <p>Anything after 6 PM works for me. Nu emaina place ankuntunnava? Leka pothe nene oka place pick cheskunta.</p>
+      <div class="options" data-choice="time">
+        <button class="option" type="button">6:30 PM</button>
+        <button class="option" type="button">7:00 PM</button>
+        <button class="option" type="button">7:30 PM</button>
+        <button class="option" type="button">8:00 PM</button>
+        <button class="option" type="button">8 tarvatha, whenever convenient</button>
+      </div>
+      <input id="place" type="text" maxlength="100" placeholder="Nee choice of place (optional)">
+      <div class="note">Place cheppakapothe, I'll pick one. No pressure.</div>
+      <div class="actions"><button class="back">← Back</button><button class="next" id="placeNext" disabled>Next →</button></div>
     </section>
 
     <section class="step" data-step="5">
-      <div class="kicker">No worries at all</div>
-      <h2>Rain check it is.</h2>
-      <p>Take it easy today. We can find another day when you're feeling up to it. Good luck with the new hospital on 8 November, too.</p>
-      <div class="actions"><button class="back">← Change my answer</button><button class="next" id="close">Done</button></div>
+      <div class="kicker">Final question · Very important</div>
+      <h2>Malli parigethuthuu intiki vellali vellali ani anukuntunnava?</h2>
+      <div class="options" data-choice="escape">
+        <button class="option" type="button">Nooooo! 😤</button>
+        <button class="option" type="button">Nooooooooo! Asalu vellanu! 😂</button>
+      </div>
+      <div class="actions"><button class="back">← Back</button><button class="next" disabled>Submit answers →</button></div>
     </section>
 
     <section class="step" data-step="6">
-      <div class="kicker">All set</div>
-      <p class="done">Plan copied.</p>
-      <p>Send it across and we'll confirm the details. Looking forward to it.</p>
-      <div class="actions"><button class="back" id="edit">← Edit plan</button><button class="next" id="finishDone">Done ✓</button></div>
+      <div class="kicker">Responses recorded</div>
+      <p class="done">Good girl. 😌</p>
+      <h2>Your responses have been noted.</h2>
+      <div class="summary" id="summary"></div>
+      <p style="margin-top:20px">Hope evening ni nee uterus lo em toofan ravaddhu ani korukuntuu… see you in the evening. 😂</p>
+      <div class="actions"><button class="back" id="edit">← Edit answers</button><button class="next" id="finish">Done ✓</button></div>
+      <div class="note">P.S. New hospital lo November 8th first day ki all the best, Doctor Madam.</div>
+    </section>
+
+    <section class="step" data-step="7">
+      <div class="kicker">Rain check</div>
+      <h2>Parledhu, Doctor Madam.</h2>
+      <p>Rest teesuko. Nee tummy fully okay ayyaka plan cheddam. New hospital first day ki all the best! ❤️</p>
+      <div class="actions"><button class="back" id="return">← Back</button><button class="next" id="close">Done</button></div>
     </section>
   </div>
 </main>
 <script>
-const answers={mood:"",invite:"",time:"",place:""};
+const answers={mood:"",food:"",invite:"",time:"",place:"",escape:""};
 let current=0;
 const steps=[...document.querySelectorAll(".step")];
 const counter=document.getElementById("counter");
@@ -130,9 +144,9 @@ const fill=document.getElementById("fill");
 function show(index){
   current=index;
   steps.forEach((step,i)=>step.classList.toggle("active",i===index));
-  const visibleIndex=Math.min(index,4);
-  counter.textContent=String(visibleIndex+1).padStart(2,"0")+" / 05";
-  fill.style.width=((visibleIndex+1)/5*100)+"%";
+  const progressStep=Math.min(index,6);
+  counter.textContent=String(progressStep+1).padStart(2,"0")+" / 07";
+  fill.style.width=((progressStep+1)/7*100)+"%";
 }
 document.querySelectorAll("[data-choice]").forEach(group=>{
   group.querySelectorAll(".option").forEach(button=>{
@@ -147,32 +161,32 @@ document.querySelectorAll("[data-choice]").forEach(group=>{
 steps.forEach((step,index)=>{
   const next=step.querySelector(".next");
   const back=step.querySelector(".back");
-  if(next && index<4) next.addEventListener("click",()=>{
-    if(index===1 && answers.invite.startsWith("Not tonight")){show(5);return;}
-    if(index===3){answers.place=document.getElementById("place").value.trim();if(!answers.place)return;buildSummary();}
+  if(next && index>=1 && index<=4) next.addEventListener("click",()=>{
+    if(index===4){answers.place=document.getElementById("place").value.trim()||"Nuvve place pick chesthav";show(5);return;}
     show(index+1);
   });
-  if(back) back.addEventListener("click",()=>show(index===5?1:Math.max(0,index-1)));
+  if(back && index!==0 && index!==6 && index!==7) back.addEventListener("click",()=>show(Math.max(0,index-1)));
 });
-const place=document.getElementById("place");
-place.addEventListener("input",()=>{answers.place=place.value.trim();document.getElementById("placeNext").disabled=!answers.place;});
+document.querySelector('[data-step="0"] .next').addEventListener("click",()=>show(1));
+document.getElementById("place").addEventListener("input",()=>{
+  const hasTime=!!answers.time;
+  document.getElementById("placeNext").disabled=!hasTime;
+});
+document.getElementById("raincheck").addEventListener("click",()=>show(7));
 function buildSummary(){
   const summary=document.getElementById("summary");
   summary.replaceChildren();
-  [["Feeling",answers.mood],["Tonight",answers.time],["Place",answers.place]].forEach(([label,value])=>{
+  [["Tummy update",answers.mood],["Yummy yummy",answers.food],["Evening plan",answers.invite],["Time",answers.time],["Place",answers.place],["Intiki parigethadam?",answers.escape]].forEach(([label,value])=>{
     const row=document.createElement("div");
     const key=document.createElement("b");key.textContent=label;
     const val=document.createElement("span");val.textContent=value;
     row.append(key,val);summary.append(row);
   });
 }
-document.getElementById("finish").addEventListener("click",async()=>{
-  const text="Tonight?\nFeeling: "+answers.mood+"\nTime: "+answers.time+"\nPlace: "+answers.place;
-  try{await navigator.clipboard.writeText(text);show(6);}
-  catch{document.getElementById("finish").textContent="Clipboard unavailable"; }
-});
-document.getElementById("edit").addEventListener("click",()=>show(3));
-document.getElementById("finishDone").addEventListener("click",()=>show(0));
+document.querySelector('[data-step="5"] .next').addEventListener("click",()=>{buildSummary();show(6);});
+document.getElementById("edit").addEventListener("click",()=>show(1));
+document.getElementById("finish").addEventListener("click",()=>show(0));
+document.getElementById("return").addEventListener("click",()=>show(3));
 document.getElementById("close").addEventListener("click",()=>show(0));
 </script>
 </body>
