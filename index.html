@@ -3,139 +3,177 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#fbf3ed">
-<title>Doctor Madam — evening planner</title>
+<meta name="theme-color" content="#f8f3ef">
+<title>Doctor Madam</title>
 <style>
-:root{--ink:#342a31;--muted:#82747b;--pink:#d98291;--paper:#fffaf6;--line:#f0e2dc;--plum:#563e50}
+:root{--ink:#302a2d;--muted:#81777a;--accent:#b97983;--line:#e9dfda;--paper:#fffdfb;--dark:#493b43}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(circle at 12% 8%,#f8e4e2 0,transparent 32%),radial-gradient(circle at 90% 90%,#f2e6d9 0,transparent 30%),#fbf3ed;color:var(--ink);font-family:ui-rounded,"Segoe UI",system-ui,sans-serif}
-main{width:min(92vw,680px);margin:auto;padding:46px 0 60px}
-.eyebrow,.section-title{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted)}
-.eyebrow{margin-bottom:18px}
-h1{font-family:Georgia,serif;font-size:clamp(44px,10vw,72px);font-weight:500;letter-spacing:-2px;line-height:.98;margin:0}
-h1 span{color:var(--pink);font-style:italic}
-.lead{font-size:16px;line-height:1.7;color:#74666e;max-width:540px;margin:20px 0 26px}
-.panel{background:rgba(255,250,246,.9);border:1px solid var(--line);border-radius:22px;padding:22px;margin:14px 0;box-shadow:0 14px 40px #6b46500d}
-.section-title{margin:0 0 13px}
-.question{font:500 23px Georgia,serif;margin:0 0 8px}
-.hint{font-size:13px;line-height:1.55;color:var(--muted);margin:0 0 14px}
-.options{display:flex;flex-wrap:wrap;gap:9px}
-button{font:inherit;cursor:pointer}
-.pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:11px 15px;color:var(--ink);transition:.16s}
-.pill:hover,.pill.selected{border-color:var(--pink);background:#f9e9e8}
-.primary{border:0;background:var(--plum);color:white;border-radius:999px;padding:13px 20px;font-weight:600}
-.primary:hover{background:#705267}
-input[type=text]{width:100%;border:1px solid var(--line);border-radius:13px;background:white;padding:13px 14px;font:inherit;color:var(--ink);outline:none}
-input[type=text]:focus{border-color:var(--pink)}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.result{display:none;background:#f6e8e5;border:1px solid #efd8d6;border-radius:18px;padding:20px;line-height:1.7;margin-top:16px}
-.result.show{display:block}
-.result strong{font-family:Georgia,serif;font-size:22px;font-weight:500}
-.tiny{font-size:12px;color:var(--muted);line-height:1.6}
-footer{text-align:center;color:#988890;font-size:12px;line-height:1.7;margin-top:26px}
-@media(max-width:520px){main{padding-top:34px}.panel{padding:18px}}
+body{margin:0;min-height:100vh;background:linear-gradient(145deg,#f7eeea,#f6f4f0 55%,#f1e9e4);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;display:grid;place-items:center;padding:24px}
+main{width:min(100%,560px)}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.brand{font-size:12px;letter-spacing:1.7px;text-transform:uppercase;color:var(--muted)}
+.progress{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.track{height:3px;background:#e7ddd8;border-radius:8px;overflow:hidden;margin-bottom:18px}
+.fill{height:100%;width:20%;background:var(--accent);transition:width .25s ease}
+.card{background:rgba(255,253,251,.94);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,6vw,42px);min-height:390px;box-shadow:0 18px 55px #44343a0b;display:flex;flex-direction:column}
+.step{display:none;flex:1;animation:appear .22s ease}
+.step.active{display:flex;flex-direction:column}
+.kicker{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--accent);margin:2px 0 20px}
+h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(38px,8vw,54px);letter-spacing:-1.6px;line-height:1.05;margin:0 0 18px}
+h1 em{color:var(--accent);font-weight:400}
+h2{font-family:Georgia,serif;font-weight:400;font-size:clamp(28px,6vw,36px);line-height:1.15;letter-spacing:-.7px;margin:0 0 14px}
+p{font-size:15px;line-height:1.7;color:#71686b;margin:0 0 22px}
+.options{display:grid;gap:10px;margin-top:4px}
+.option{width:100%;text-align:left;border:1px solid var(--line);border-radius:13px;padding:14px 16px;background:#fff;color:var(--ink);font:inherit;transition:border-color .15s,background .15s}
+.option:hover{border-color:#c99aa0;background:#fffafa}
+.option.selected{border-color:var(--accent);background:#fbf0f0}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:28px}
+button{cursor:pointer}
+.next{border:0;border-radius:999px;padding:13px 22px;background:var(--dark);color:white;font:600 14px inherit}
+.next:disabled{opacity:.35;cursor:not-allowed}
+.back{border:0;background:transparent;color:var(--muted);padding:10px 0;font:inherit}
+.back:disabled{visibility:hidden}
+input{width:100%;border:1px solid var(--line);border-radius:13px;padding:15px 16px;font:inherit;background:white;outline:none;color:var(--ink)}
+input:focus{border-color:var(--accent)}
+.note{font-size:12px;color:#978c8d;line-height:1.6;margin-top:20px}
+.summary{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff;margin-top:4px}
+.summary div{padding:9px 0;border-bottom:1px solid #f0e9e5;font-size:14px;line-height:1.5}
+.summary div:last-child{border:0}
+.summary b{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:3px}
+.done{font-family:Georgia,serif;font-size:25px;margin:0 0 12px}
+@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:420px){body{padding:14px}.card{min-height:430px;border-radius:20px}}
 </style>
 </head>
 <body>
 <main>
-  <div class="eyebrow">a very unofficial evening-planning portal</div>
-  <h1><span>Doctor Madam,</span><br>one question.</h1>
-  <p class="lead">Yesterday's plan didn't happen, so I'm submitting a revised proposal for tonight. First, a very important medical update… 🌷</p>
+  <div class="top"><div class="brand">A small plan for tonight</div><div class="progress" id="counter">01 / 05</div></div>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="card">
+    <section class="step active" data-step="0">
+      <div class="kicker">First things first</div>
+      <h1>Doctor <em>Madam.</em></h1>
+      <h2>How are you feeling today?</h2>
+      <p>Yesterday didn't work out. Just checking how you're doing today before I try my luck again.</p>
+      <div class="options" data-choice="mood">
+        <button class="option" type="button">Feeling much better</button>
+        <button class="option" type="button">A little better, taking it easy</button>
+        <button class="option" type="button">Still not at my best</button>
+      </div>
+      <div class="actions"><button class="back" disabled>Back</button><button class="next" disabled>Next →</button></div>
+    </section>
 
-  <section class="panel">
-    <div class="section-title">01 / quick check-in</div>
-    <h2 class="question">How are you feeling today?</h2>
-    <p class="hint">Choose the most accurate clinical assessment. No pressure to power through if you're not feeling up to it.</p>
-    <div class="options" data-group="mood">
-      <button class="pill" type="button">Much better 😊</button>
-      <button class="pill" type="button">Getting there 🙂</button>
-      <button class="pill" type="button">Still taking it easy 🫶</button>
-    </div>
-  </section>
+    <section class="step" data-step="1">
+      <div class="kicker">The actual question</div>
+      <h2>Would you like to meet tonight?</h2>
+      <p>I'm free after 6. Nothing elaborate — just getting out for a bit and spending some time together.</p>
+      <div class="options" data-choice="invite">
+        <button class="option" type="button">Yes, let's make it happen</button>
+        <button class="option" type="button">Not tonight. Another day?</button>
+      </div>
+      <div class="actions"><button class="back">← Back</button><button class="next" disabled>Next →</button></div>
+    </section>
 
-  <section class="panel">
-    <div class="section-title">02 / the actual proposal</div>
-    <h2 class="question">So… are you joining me tonight?</h2>
-    <p class="hint">I’m free after 6 PM. The plan is simple: step out, have a nice time, and absolutely no strenuous activities.</p>
-    <div class="options" data-group="invite">
-      <button class="pill" type="button">I'm in. Let's go ✨</button>
-      <button class="pill" type="button">Not tonight — rain check?</button>
-    </div>
-  </section>
+    <section class="step" data-step="2">
+      <div class="kicker">If tonight works</div>
+      <h2>What time suits you?</h2>
+      <p>Pick whatever fits around your evening. I'm available after 6 PM.</p>
+      <div class="options" data-choice="time">
+        <button class="option" type="button">6:30 PM</button>
+        <button class="option" type="button">7:00 PM</button>
+        <button class="option" type="button">7:30 PM</button>
+        <button class="option" type="button">8:00 PM</button>
+        <button class="option" type="button">Later than 8</button>
+      </div>
+      <div class="actions"><button class="back">← Back</button><button class="next" disabled>Next →</button></div>
+    </section>
 
-  <section class="panel" id="details">
-    <div class="section-title">03 / scheduling department</div>
-    <h2 class="question">What time works for you?</h2>
-    <p class="hint">All options are after 6 PM. Pick whichever feels comfortable.</p>
-    <div class="options" data-group="time">
-      <button class="pill" type="button">6:30 PM</button>
-      <button class="pill" type="button">7:00 PM</button>
-      <button class="pill" type="button">7:30 PM</button>
-      <button class="pill" type="button">8:00 PM</button>
-      <button class="pill" type="button">A little later</button>
-    </div>
-  </section>
+    <section class="step" data-step="3">
+      <div class="kicker">Your call</div>
+      <h2>Where would you like to go?</h2>
+      <p>You can name a place, a neighbourhood, or just tell me the kind of place you're in the mood for. I'll take it from there.</p>
+      <input id="place" type="text" maxlength="100" placeholder="A café, a quiet place, your pick…">
+      <div class="note">No need to overthink it. Somewhere comfortable is perfect.</div>
+      <div class="actions"><button class="back">← Back</button><button class="next" id="placeNext" disabled>Next →</button></div>
+    </section>
 
-  <section class="panel">
-    <div class="section-title">04 / location, your honour</div>
-    <h2 class="question">Where shall we go?</h2>
-    <p class="hint">You get first say. Type a place you like, or give me a general area and I'll figure it out.</p>
-    <input id="place" type="text" maxlength="100" placeholder="Your pick… café, a walk, somewhere quiet">
-  </section>
+    <section class="step" data-step="4">
+      <div class="kicker">One last check</div>
+      <h2>Here's what we're thinking.</h2>
+      <p>I'll confirm the details with you before heading out.</p>
+      <div class="summary" id="summary"></div>
+      <div class="note">And good luck with the new hospital on 8 November. Hope the first day goes smoothly.</div>
+      <div class="actions"><button class="back">← Back</button><button class="next" id="finish">Copy plan</button></div>
+    </section>
 
-  <section class="panel">
-    <div class="section-title">05 / final review</div>
-    <h2 class="question">Submit your extremely important decisions.</h2>
-    <p class="hint">I'll take the hint, confirm the details with you, and make the plan happen. If tonight isn't ideal, that's completely okay too.</p>
-    <div class="actions">
-      <button class="primary" id="review" type="button">Review my plan</button>
-      <button class="pill" id="copy" type="button" hidden>Copy my choices</button>
-    </div>
-    <div class="result" id="result" aria-live="polite"></div>
-    <p class="tiny">P.S. Good luck with the new hospital on 8 November. Hope the first day goes brilliantly.</p>
-  </section>
-  <footer>Built with a little thought, a revised plan, and no pressure to say yes. <span style="color:#d98291">✦</span></footer>
+    <section class="step" data-step="5">
+      <div class="kicker">No worries at all</div>
+      <h2>Rain check it is.</h2>
+      <p>Take it easy today. We can find another day when you're feeling up to it. Good luck with the new hospital on 8 November, too.</p>
+      <div class="actions"><button class="back">← Change my answer</button><button class="next" id="close">Done</button></div>
+    </section>
+
+    <section class="step" data-step="6">
+      <div class="kicker">All set</div>
+      <p class="done">Plan copied.</p>
+      <p>Send it across and we'll confirm the details. Looking forward to it.</p>
+      <div class="actions"><button class="back" id="edit">← Edit plan</button><button class="next" id="finishDone">Done ✓</button></div>
+    </section>
+  </div>
 </main>
 <script>
-const selections={mood:"",invite:"",time:""};
-document.querySelectorAll("[data-group]").forEach(group=>{
-  group.querySelectorAll("button").forEach(button=>{
+const answers={mood:"",invite:"",time:"",place:""};
+let current=0;
+const steps=[...document.querySelectorAll(".step")];
+const counter=document.getElementById("counter");
+const fill=document.getElementById("fill");
+function show(index){
+  current=index;
+  steps.forEach((step,i)=>step.classList.toggle("active",i===index));
+  const visibleIndex=Math.min(index,4);
+  counter.textContent=String(visibleIndex+1).padStart(2,"0")+" / 05";
+  fill.style.width=((visibleIndex+1)/5*100)+"%";
+}
+document.querySelectorAll("[data-choice]").forEach(group=>{
+  group.querySelectorAll(".option").forEach(button=>{
     button.addEventListener("click",()=>{
-      group.querySelectorAll("button").forEach(item=>item.classList.remove("selected"));
+      group.querySelectorAll(".option").forEach(item=>item.classList.remove("selected"));
       button.classList.add("selected");
-      selections[group.dataset.group]=button.textContent.trim();
-      if(group.dataset.group==="invite"){
-        document.getElementById("details").style.opacity=button.textContent.includes("Not tonight")?".55":"1";
-      }
+      answers[group.dataset.choice]=button.textContent.trim();
+      group.closest(".step").querySelector(".next").disabled=false;
     });
   });
 });
-const result=document.getElementById("result");
-const copy=document.getElementById("copy");
-let summary="";
-document.getElementById("review").addEventListener("click",()=>{
-  const place=document.getElementById("place").value.trim();
-  if(!selections.mood||!selections.invite){
-    result.textContent="Just answer the check-in and the invitation first 🙂";
-    result.classList.add("show");copy.hidden=true;return;
-  }
-  if(selections.invite.includes("Not tonight")){
-    summary="Doctor Madam's update: "+selections.mood+". She's choosing a rain check tonight.";
-    result.innerHTML="<strong>Rain check accepted. 🫶</strong><br>"+selections.mood+". We'll find a better day — no negotiations required.";
-    copy.hidden=false;result.classList.add("show");return;
-  }
-  if(!selections.time||!place){
-    result.textContent="One last thing: pick a time and write down a place (or an area).";
-    result.classList.add("show");copy.hidden=true;return;
-  }
-  summary="Tonight's plan\nFeeling: "+selections.mood+"\nTime: "+selections.time+"\nPlace: "+place;
-  result.innerHTML="<strong>Proposal received. ✨</strong><br>"+selections.time+" at "+place+".<br>I'll confirm the details with you. Looking forward to it!";
-  copy.hidden=false;result.classList.add("show");
+steps.forEach((step,index)=>{
+  const next=step.querySelector(".next");
+  const back=step.querySelector(".back");
+  if(next && index<4) next.addEventListener("click",()=>{
+    if(index===1 && answers.invite.startsWith("Not tonight")){show(5);return;}
+    if(index===3){answers.place=document.getElementById("place").value.trim();if(!answers.place)return;buildSummary();}
+    show(index+1);
+  });
+  if(back) back.addEventListener("click",()=>show(index===5?1:Math.max(0,index-1)));
 });
-copy.addEventListener("click",async()=>{
-  try{await navigator.clipboard.writeText(summary);copy.textContent="Copied ✓";}
-  catch{copy.textContent="Select and copy the plan above";}
+const place=document.getElementById("place");
+place.addEventListener("input",()=>{answers.place=place.value.trim();document.getElementById("placeNext").disabled=!answers.place;});
+function buildSummary(){
+  const summary=document.getElementById("summary");
+  summary.replaceChildren();
+  [["Feeling",answers.mood],["Tonight",answers.time],["Place",answers.place]].forEach(([label,value])=>{
+    const row=document.createElement("div");
+    const key=document.createElement("b");key.textContent=label;
+    const val=document.createElement("span");val.textContent=value;
+    row.append(key,val);summary.append(row);
+  });
+}
+document.getElementById("finish").addEventListener("click",async()=>{
+  const text="Tonight?\nFeeling: "+answers.mood+"\nTime: "+answers.time+"\nPlace: "+answers.place;
+  try{await navigator.clipboard.writeText(text);show(6);}
+  catch{document.getElementById("finish").textContent="Clipboard unavailable"; }
 });
+document.getElementById("edit").addEventListener("click",()=>show(3));
+document.getElementById("finishDone").addEventListener("click",()=>show(0));
+document.getElementById("close").addEventListener("click",()=>show(0));
 </script>
 </body>
 </html>
