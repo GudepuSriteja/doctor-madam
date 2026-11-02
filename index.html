@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#fbf3ed">
-<title>Srungi's evening planner</title>
+<title>Doctor Madam — evening planner</title>
 <style>
 :root{--ink:#342a31;--muted:#82747b;--pink:#d98291;--paper:#fffaf6;--line:#f0e2dc;--plum:#563e50}
 *{box-sizing:border-box}
@@ -39,7 +39,7 @@ footer{text-align:center;color:#988890;font-size:12px;line-height:1.7;margin-top
 <body>
 <main>
   <div class="eyebrow">a very unofficial evening-planning portal</div>
-  <h1>Doctor <span>Srungi,</span><br>one question.</h1>
+  <h1><span>Doctor Madam,</span><br>one question.</h1>
   <p class="lead">Yesterday's plan didn't happen, so I'm submitting a revised proposal for tonight. First, a very important medical update… 🌷</p>
 
   <section class="panel">
@@ -120,7 +120,7 @@ document.getElementById("review").addEventListener("click",()=>{
     result.classList.add("show");copy.hidden=true;return;
   }
   if(selections.invite.includes("Not tonight")){
-    summary="Srungi's update: "+selections.mood+". She's choosing a rain check tonight.";
+    summary="Doctor Madam's update: "+selections.mood+". She's choosing a rain check tonight.";
     result.innerHTML="<strong>Rain check accepted. 🫶</strong><br>"+selections.mood+". We'll find a better day — no negotiations required.";
     copy.hidden=false;result.classList.add("show");return;
   }
