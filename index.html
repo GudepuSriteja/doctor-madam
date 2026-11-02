@@ -115,7 +115,9 @@ input:focus{border-color:var(--accent)}
         <button class="option" type="button">Nooooo! 😤</button>
         <button class="option" type="button">Nooooooooo! Asalu vellanu! 😂</button>
       </div>
-      <div class="actions"><button class="back">← Back</button><button class="next" disabled>Submit answers →</button></div>
+      <div class="note" style="margin-top:18px">If you submit, your answers will be sent to Sriteja and stored in a private Google Sheet, including the answer about how you are feeling. You can choose not to submit.</div>
+      <label style="display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:13px;line-height:1.5;color:#71686b"><input id="consent" type="checkbox" style="width:18px;height:18px;flex:0 0 18px;margin:0"> I agree to share these answers with Sriteja.</label>
+      <div class="actions"><button class="back">← Back</button><button class="next" id="submitAnswers" disabled>Submit answers →</button></div>
     </section>
 
     <section class="step" data-step="6">
@@ -173,7 +175,16 @@ document.getElementById("place").addEventListener("input",()=>{
   document.getElementById("placeNext").disabled=!hasTime;
 });
 document.getElementById("raincheck").addEventListener("click",()=>show(7));
-document.querySelector('[data-step="5"] .next').addEventListener("click",()=>show(6));
+const SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+document.getElementById("consent").addEventListener("change", e => { document.getElementById("submitAnswers").disabled = !e.target.checked; });
+document.getElementById("submitAnswers").addEventListener("click", async () => {
+ const b=document.getElementById("submitAnswers"); if(!document.getElementById("consent").checked)return;
+ if(SCRIPT_URL.includes("PASTE_YOUR")){alert("Form setup is not finished yet.");return;}
+ b.disabled=true;b.textContent="Submitting…";
+ const payload={mood:answers.mood,food:answers.food,invite:answers.invite,time:answers.time,place:answers.place,escape:answers.escape};
+ try{await fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",body:new URLSearchParams({payload:JSON.stringify(payload)})});document.querySelector('[data-step="6"] .done').textContent="Thank you. ❤️";document.querySelector('[data-step="6"] h2').textContent="Your answers have been sent.";show(6);}
+ catch(err){b.disabled=false;b.textContent="Try again →";alert("Could not send. Please try again.");}
+});
 document.getElementById("finish").addEventListener("click",()=>{
   const button=document.getElementById("finish");
   button.textContent="All set ✓";
